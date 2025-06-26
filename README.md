@@ -92,4 +92,4 @@ AntikaHub is a Django-based web application for discovering, buying, and reviewi
 
 ## License
 
-This project is for educational/demo purposes. Please add your own license if
+This project is for educational/demo purposes. Please add your own license if you plan to use this application.
