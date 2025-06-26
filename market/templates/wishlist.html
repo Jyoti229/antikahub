@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 style="text-align:center; margin-bottom: 20px;">Your Wishlist</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+    {% for item in items %}
+        <div style="border: 1px solid #ccc; border-radius: 10px; padding: 20px; width: 220px; text-align: center; background: #fafafa;">
+            <a href="{% url 'product_detail' item.product.id %}" style="text-decoration: none; color: #222;">
+                {% if item.product.image %}
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="max-height: 120px; border-radius: 6px; margin-bottom: 10px;">
+                {% endif %}
+                <h3 style="margin: 10px 0 5px 0;">{{ item.product.name }}</h3>
+            </a>
+            <p style="color: #666;">₹{{ item.product.price }}</p>
+            <form method="post" action="{% url 'remove_from_wishlist' item.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" style="padding: 5px 12px; background: #ff5555; color: white; border: none; border-radius: 5px;">Remove</button>
+            </form>
+        </div>
+    {% empty %}
+        <p>No items in wishlist.</p>
+    {% endfor %}
+</div>
+{% endblock %}

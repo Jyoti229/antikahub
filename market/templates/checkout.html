@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 style="text-align:center; margin-bottom: 20px;">🚚 Shipping Information</h2>
+
+<form method="POST" style="max-width: 600px; margin: auto; background: #f9f9f9; padding: 20px; border-radius: 10px;">
+    {% csrf_token %}
+    <div>
+        {{ form.shipping_address.label_tag }}<br>
+        {{ form.shipping_address }}
+    </div>
+    <div>
+        {{ form.city.label_tag }}<br>
+        {{ form.city }}
+    </div>
+    <div>
+        {{ form.phone.label_tag }}<br>
+        {{ form.phone }}
+    </div>
+    <div>
+        {{ form.payment_method.label_tag }}<br>
+        {{ form.payment_method }}
+    </div>
+    <div id="upi-field" style="display:none;">
+        {{ form.upi_id.label_tag }}<br>
+        {{ form.upi_id }}
+    </div>
+    <div>
+        {{ form.shipping_method.label_tag }}<br>
+        {{ form.shipping_method }}
+    </div>
+    {{ form.shipping_charge }}
+    <div style="text-align: center; margin-top: 20px;">
+        <button type="submit" style="padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px;">Place Order</button>
+    </div>
+</form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    function toggleUpiField() {
+        var paymentMethod = document.getElementById('id_payment_method');
+        var upiField = document.getElementById('upi-field');
+        if (paymentMethod.value === 'upi') {
+            upiField.style.display = '';
+        } else {
+            upiField.style.display = 'none';
+        }
+    }
+    function updateShippingCharge() {
+        var shippingMethod = document.getElementById('id_shipping_method');
+        var shippingCharge = document.getElementById('id_shipping_charge');
+        if (shippingMethod.value === 'express') {
+            shippingCharge.value = 150;
+        } else {
+            shippingCharge.value = 60;
+        }
+    }
+    var paymentMethod = document.getElementById('id_payment_method');
+    var shippingMethod = document.getElementById('id_shipping_method');
+    paymentMethod.addEventListener('change', toggleUpiField);
+    shippingMethod.addEventListener('change', updateShippingCharge);
+    toggleUpiField();
+    updateShippingCharge();
+});
+</script>
+{% endblock %}

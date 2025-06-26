@@ -1,0 +1,196 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fdfcfb;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark-mode {
+    background-color: #1e1e1e;
+    color: #f1f1f1;
+}
+
+header {
+    background-color: #5a3e36;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+header .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #22b29c;
+    text-decoration: none;
+    text-shadow: 1px 1px #75a059;
+}
+
+nav {
+    display: flex;
+    gap: 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Dark mode toggle button */
+.toggle-dark {
+    background: none;
+    border: 2px solid white;
+    border-radius: 20px;
+    padding: 5px 10px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.toggle-dark:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+main {
+    padding: 20px;
+}
+
+footer {
+    background-color: #e8e6e3;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    color: #444;
+}
+
+/* Product Grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.product-card {
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+}
+
+.dark-mode .product-card {
+    background-color: #2a2a2a;
+    border-color: #444;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.product-card h3 {
+    margin: 10px 0 5px;
+    color: #2c3e50;
+}
+
+.product-card p {
+    font-size: 1.1em;
+    color: #444;
+}
+
+/* Buttons */
+.btn-cart, .btn-buy, .toggle-dark {
+    padding: 8px 14px;
+    margin: 5px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s ease, opacity 0.3s ease;
+}
+
+.btn-cart {
+    background-color: #ffcc00;
+    color: #333;
+}
+
+.btn-buy {
+    background-color: #00b894;
+    color: white;
+}
+
+.btn-cart:hover,
+.btn-buy:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+}
+
+/* Forms */
+form input, form select, form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* Responsive Nav */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav a {
+        margin-bottom: 10px;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+.messages {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.messages li {
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    font-weight: 500;
+}
+
+.messages li.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.messages li.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}

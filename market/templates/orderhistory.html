@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h2>Your Order History</h2>
+
+    {% if orders %}
+      <ul>
+        {% for order in orders %}
+          <li>
+            <strong>{{ order.item.name }}</strong> —
+            ₹{{ order.item.price }} —
+            Ordered on {{ order.created_at|date:"D, d M Y H:i" }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>You haven't placed any orders yet.</p>
+    {% endif %}
+  </div>
+{% endblock %}

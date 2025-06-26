@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="text-align: center; padding: 40px;">
+    <h2 style="color: green;">✅ Thank you for your order!</h2>
+    <p style="font-size: 18px;">Your order has been placed successfully. We’ll notify you once it’s shipped.</p>
+    <a href="{% url 'product_list' %}" style="margin-top: 20px; display: inline-block; padding: 10px 20px; background-color: #3f51b5; color: white; text-decoration: none; border-radius: 5px;">
+        🛍️ Continue Shopping
+    </a>
+</div>
+{% endblock %}

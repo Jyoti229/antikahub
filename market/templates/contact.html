@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Contact Us 📨</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary mt-2">Send Message</button>
+    </form>
+
+    {% if message_sent %}
+    <div style="display: grid; place-items: center; margin-top: 20px;">
+        <div style="background: #e6ffe6; color: #207520; padding: 16px 32px; border-radius: 8px; font-size: 1.2em; box-shadow: 0 2px 8px #eee;">
+            ✅ Message sent!
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

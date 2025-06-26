@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+<header>
+    <a class="logo" href="/">AntikaHub</a>
+    <nav>
+        <a href="{% url 'home' %}">Home</a>
+        <a href="{% url 'login' %}">Login</a>
+    </nav>
+    <button class="toggle-dark">🌓</button>
+</header>
+
+<main>
+    <div class="container" style="max-width: 500px; margin: 0 auto;">
+        <h2 style="text-align: center; color: #5a3e36;">Register</h2>
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="post"  action="{% url 'register' %}">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="btn-buy" >Register</button>
+        </form>
+
+        <p style="text-align: center; margin-top: 10px;">
+            Already have an account? <a href="{% url 'login' %}">Login</a>
+        </p>
+    </div>
+</main>
+
+<footer>
+    <p>© 2025 AntikaHub. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

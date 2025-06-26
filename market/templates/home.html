@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% load static %}  <!-- ✅ Add this line -->
+
+{% block content %}
+<h2>Welcome to AntikaHub</h2>
+<p>Explore timeless antique collections from around the world.</p>
+<img src="{% static 'images/ant1.jpeg' %}" alt="Antiques" style="width:80%; max-height:300px;">
+{% endblock %}

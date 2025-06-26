@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width: 900px; margin: 40px auto;">
+    <div style="display: flex; gap: 40px; align-items: flex-start;">
+        <!-- Product Image -->
+        <div>
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 320px; max-height: 320px; object-fit: cover; border-radius: 10px; box-shadow: 0 2px 8px #eee;">
+        </div>
+        <!-- Product Info -->
+        <div style="flex:1;">
+            <h2 style="margin-bottom: 10px;">{{ product.name }}</h2>
+            <p style="color: #444; margin-bottom: 16px;">{{ product.description }}</p>
+            <p style="font-size: 1.2em; font-weight: bold; margin-bottom: 16px;">₹{{ product.price }}</p>
+            <div style="margin-bottom: 18px; display: flex; gap: 12px;">
+                <form method="post" action="{% url 'buy_now' product.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success" style="min-width:110px; font-weight:bold; box-shadow:0 2px 8px #d4edda;">
+                        <span style="margin-right:6px;">🛒</span>Buy Now
+                    </button>
+                </form>
+                <form method="post" action="{% url 'add_to_cart' product.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary" style="min-width:110px; font-weight:bold; box-shadow:0 2px 8px #cce5ff;">
+                        <span style="margin-right:6px;">➕</span>Add to Cart
+                    </button>
+                </form>
+                <form method="post" action="{% url 'add_to_wishlist' product.id %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-danger" style="min-width:110px; font-weight:bold; box-shadow:0 2px 8px #f8d7da;">
+                        <span style="margin-right:6px;">❤️</span>Wishlist
+                    </button>
+                </form>
+            </div>
+            <!-- Artist Info -->
+            {% if product.artist %}
+            <div style="display: flex; gap: 16px; align-items: flex-start; margin-top: 24px;">
+                {% if product.artist.photo %}
+                    <img src="{{ product.artist.photo.url }}" alt="{{ product.artist.name }}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 8px #eee;">
+                {% endif %}
+                <div>
+                    <a href="{% url 'artist_detail' product.artist.id %}" style="color: #000; font-weight: bold; text-decoration: none;">
+                        {{ product.artist.name }}
+                    </a>
+                    <div style="color: #666; font-size: 0.95em;">{{ product.artist.biography|truncatewords:20 }}</div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Ratings & Reviews Section -->
+    <div style="margin-top: 48px;">
+        <h3>Ratings & Reviews</h3>
+        {% if avg_rating %}
+            <div><strong>Average Rating:</strong> <span style="color: #f39c12;">&#9733; {{ avg_rating|floatformat:1 }}/5</span></div>
+        {% endif %}
+        {% if reviews %}
+            {% for review in reviews %}
+                <div style="border-bottom: 1px solid #eee; padding: 10px 0;">
+                    <strong>{{ review.user.username }}</strong>
+                    <span style="color: #f39c12;">&#9733; {{ review.rating }}/5</span>
+                    <p>{{ review.comment }}</p>
+                    <small>{{ review.created_at|date:"Y-m-d H:i" }}</small>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No reviews yet.</p>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'add_review' product.id %}" style="margin-top: 24px;">
+                {% csrf_token %}
+                <label for="id_rating">Rating:</label>
+                <select name="rating" id="id_rating" required>
+                    <option value="">Select</option>
+                    {% for i in "12345" %}
+                        <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                <label for="id_comment">Comment:</label><br>
+                <textarea name="comment" id="id_comment" rows="3" required></textarea><br>
+                <button type="submit" style="margin-top:10px;">Submit Review</button>
+            </form>
+        {% else %}
+            <p><a href="{% url 'login' %}">Login</a> to add a review.</p>
+        {% endif %}
+    </div>
+{% endblock %}

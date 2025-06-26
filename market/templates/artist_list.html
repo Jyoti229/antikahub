@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 style="text-align:center; margin: 30px 0;">Our Artists</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 32px;">
+    {% for artist in artists %}
+        <div style="background: #fafafa; border-radius: 10px; box-shadow: 0 2px 8px #eee; padding: 20px; text-align: center;">
+            {% if artist.photo %}
+                <img src="{{ artist.photo.url }}" alt="{{ artist.name }}" style="width: 120px; height: 120px; object-fit: cover; border-radius: 50%; margin-bottom: 12px;">
+            {% endif %}
+            <h4>{{ artist.name }}</h4>
+            <p style="color: #666;">{{ artist.bio|truncatewords:20 }}</p>
+            <p><strong>Artworks:</strong> {{ artist.antiqueitem_set.count }}</p>
+            <a href="{% url 'artist_detail' artist.id %}" class="btn btn-outline-primary btn-sm">View Profile</a>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

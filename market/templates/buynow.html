@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Buy Now - {{ item.name }}</h1>
+  <p>Price: ₹{{ item.price }}</p>
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirm Purchase</button>
+  </form>
+{% endblock %}
